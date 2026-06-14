@@ -6,6 +6,10 @@
         {
           "key": "Content-Security-Policy",
           "value": "frame-ancestors 'self' https://*.pinet.com https://sandbox.pinet.com http://sandbox.pinet.com;"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "ALLOW-FROM https://*.pinet.com"
         }
       ]
     }
