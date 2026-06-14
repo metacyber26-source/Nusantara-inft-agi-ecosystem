@@ -14,6 +14,26 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true)
+
+    // =========================================================================
+    // INJEKSI SAKTI: Membuka Blokir Keamanan Iframe untuk Pi Browser Secara Dinamis
+    // =========================================================================
+    if (typeof window !== "undefined" && !document.getElementById("pi-csp")) {
+      // 1. Injeksi Content-Security-Policy (CSP)
+      const metaCSP = document.createElement("meta")
+      metaCSP.id = "pi-csp"
+      metaCSP.httpEquiv = "Content-Security-Policy"
+      metaCSP.content = "frame-ancestors 'self' https://*.pinet.com https://sandbox.pinet.com http://sandbox.pinet.com;"
+      document.head.appendChild(metaCSP)
+
+      // 2. Injeksi X-Frame-Options
+      const metaXFrame = document.createElement("meta")
+      metaXFrame.id = "pi-xframe"
+      metaXFrame.httpEquiv = "X-Frame-Options"
+      metaXFrame.content = "ALLOW-FROM https://*.pinet.com"
+      document.head.appendChild(metaXFrame)
+    }
+    // =========================================================================
   }, [])
 
   if (!mounted) {
